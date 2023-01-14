@@ -1,20 +1,22 @@
+// import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { reviewsOnMovie } from 'services/api';
 
-export const Reviews = () => {
+ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
-console.log(isLoading)
+// console.log(isLoading)
 
   useEffect(() => {
     const getReviews = async () => {
       try {
         setIsLoading(true);
         const { data } = await reviewsOnMovie(movieId);
-        console.log(data);
+        // console.log(data);
         setReviews(data.results);
       } catch (error) {
         alert(error.message);
@@ -30,6 +32,8 @@ console.log(isLoading)
   }
 
   return (
+    <>
+    {isLoading && <Loader/>}
     <ul>
       {reviews?.map(review => {
         return (
@@ -40,5 +44,8 @@ console.log(isLoading)
         );
       })}
     </ul>
+    </>
   );
 };
+
+export default Reviews;

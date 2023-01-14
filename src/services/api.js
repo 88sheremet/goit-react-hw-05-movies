@@ -34,7 +34,7 @@ export const reviewsOnMovie = async (movieId = '1') => {
   return data;
 };
 
-export const searchMovie = async (query) => {
+export const searchMovie = async query => {
   const data = await axios.get(
     `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&language=en-US&query=${query}`
   );

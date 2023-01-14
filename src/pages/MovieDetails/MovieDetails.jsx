@@ -1,12 +1,16 @@
+import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
+import { Loader } from 'components/Loader/Loader';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import { trendingMovieDetails } from 'services/api';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
+  const location = useLocation()
+  
 
   useEffect(() => {
     const getMovie = async () => {
@@ -35,8 +39,10 @@ export const MovieDetails = () => {
   }
 
   return (
+    <>
+    <ButtonGoBack/>
     <div>
-      {isLoading && <p>loading ...</p>}
+      {isLoading && <Loader/>}
       <img
         src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
         alt=""
@@ -52,13 +58,17 @@ export const MovieDetails = () => {
 
       <ul>
         <li>
-          <NavLink to="cast">Cast</NavLink>
+          <NavLink to="cast" state={{ from: location.state?.from ?? '/' }}>Cast</NavLink>
         </li>
         <li>
-          <NavLink to="reviews">Reviews</NavLink>
+          <NavLink to="reviews" state={{ from: location.state?.from ?? '/' }}>Reviews</NavLink>
         </li>
       </ul>
       <Outlet />
     </div>
+    </>
   );
 };
+
+
+export default MovieDetails;

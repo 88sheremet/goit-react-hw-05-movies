@@ -1,50 +1,47 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import { searchMovie } from 'services/api';
 import Notiflix from 'notiflix';
+import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
+import { Loader } from 'components/Loader/Loader';
 
-console.log(useParams)
-console.log(useSearchParams)
-
-export const Movies = () => {
-  const [query, setQuery] = useState('');
+const Movies = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get('query');
+  const [query, setQuery] = useState(searchQuery ?? '');
   const [isLoading, setIsLoading] = useState(false);
-  const [searchMovies, setSearchMovies] = useState([])
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   const searchQuery = searchParams.get('query');
-//   const { movieId } = useParams();
-console.log(isLoading)
+  const [searchMovies, setSearchMovies] = useState([]);
+  const location = useLocation();
+
+  console.log(searchQuery);
 
   const onChange = e => {
     setQuery(e.target.value);
-    console.log(query)
-    // setIsLoading(true);
+    console.log(query);
   };
 
   const onSubmit = e => {
     e.preventDefault();
 
+    setSearchParams({ query: query });
+
     if (query === '') {
       Notiflix.Notify.failure(`Enter a query!`);
       return;
-    } else if (query !== '') {
-        // console.log(e.target.value)
-      setQuery(e.target.value);
     }
-    console.log(query)
   };
 
   useEffect(() => {
-    if (query === '') return
+    if (query === '') return;
 
     const getSearchMovie = async () => {
       try {
         setIsLoading(true);
         // console.log(query)
-        const {data} = await searchMovie(query);
+        const { data } = await searchMovie(query);
         setSearchMovies(data.results);
-        console.log(data.results);
+        // console.log(data.results);
       } catch (error) {
         alert(error.message);
       } finally {
@@ -56,26 +53,31 @@ console.log(isLoading)
 
   return (
     <>
-    <div>
-      <form  onSubmit={onSubmit}>
-        <input type="text" onChange={onChange} />
-      </form>
-      <button type='submit'>Search</button>
-    </div>
-<div>
-    {searchMovies && (<ul>
-        {searchMovies.map(movie =>{
+      <ButtonGoBack />
+      <div>
+        <form onSubmit={onSubmit}>
+          <input type="text" onChange={onChange} />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <div>
+        {isLoading && <Loader />}
+
+        <ul>
+          {searchMovies.map(movie => {
             return (
-               
-                <li>
-                     <Link to={`/movies/${movie.id}`}>
-                    <p>{movie.title}</p>
-                    </Link> 
-                </li>
-            )
-        })}
-    </ul>)}
-    </div>
+              <li key={movie.id}>
+                <NavLink to={`/movies/${movie.id}`} state={{ from: location }}>
+                  <p>{movie.title}</p>
+                </NavLink>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </>
   );
 };
+
+
+export default Movies;
