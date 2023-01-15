@@ -5,11 +5,11 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { reviewsOnMovie } from 'services/api';
 
- const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
-// console.log(isLoading)
+  // console.log(isLoading)
 
   useEffect(() => {
     const getReviews = async () => {
@@ -33,17 +33,17 @@ import { reviewsOnMovie } from 'services/api';
 
   return (
     <>
-    {isLoading && <Loader/>}
-    <ul>
-      {reviews?.map(review => {
-        return (
-          <li key={review.id}>
-            <p>Author: {review.author}</p>
-            <p>{review.content}</p>
-          </li>
-        );
-      })}
-    </ul>
+      {isLoading && <Loader />}
+      <ul>
+        {reviews?.map(review => {
+          return (
+            <li key={review.id}>
+              <p>Author: {review.author}</p>
+              <p>{review.content}</p>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 };

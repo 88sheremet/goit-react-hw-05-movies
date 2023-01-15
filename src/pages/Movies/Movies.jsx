@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import { searchMovie } from 'services/api';
 import Notiflix from 'notiflix';
-import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
 import { Loader } from 'components/Loader/Loader';
+import css from '../Movies/Movies.module.css';
 
 const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,11 +14,11 @@ const Movies = () => {
   const [searchMovies, setSearchMovies] = useState([]);
   const location = useLocation();
 
-  console.log(searchQuery);
+  // console.log(searchQuery);
 
   const onChange = e => {
     setQuery(e.target.value);
-    console.log(query);
+    // console.log(query);
   };
 
   const onSubmit = e => {
@@ -38,10 +38,10 @@ const Movies = () => {
     const getSearchMovie = async () => {
       try {
         setIsLoading(true);
-        // console.log(query)
+       
         const { data } = await searchMovie(query);
         setSearchMovies(data.results);
-        // console.log(data.results);
+       
       } catch (error) {
         alert(error.message);
       } finally {
@@ -53,11 +53,12 @@ const Movies = () => {
 
   return (
     <>
-      <ButtonGoBack />
       <div>
-        <form onSubmit={onSubmit}>
-          <input type="text" onChange={onChange} />
-          <button type="submit">Search</button>
+        <form onSubmit={onSubmit} className={css.form}>
+          <input type="text" onChange={onChange} className={css.input} />
+          <button type="submit" className={css.button}>
+            Search
+          </button>
         </form>
       </div>
       <div>
@@ -78,6 +79,5 @@ const Movies = () => {
     </>
   );
 };
-
 
 export default Movies;

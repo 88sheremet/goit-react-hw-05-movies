@@ -1,3 +1,27 @@
-.home{
-    margin-right: 20px;
+nav {
+  padding: 15px 15px 0 15px;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.home {
+  margin-right: 20px;
+  color: black;
+}
+
+.home:hover {
+  color: rgba(0, 26, 255, 0.63);
+}
+
+.movies {
+  margin-left: 20px;
+  color: black;
+}
+
+.movies:hover {
+  color: rgba(0, 26, 255, 0.63);
+}
+
+.active {
+  color: rgba(0, 26, 255, 0.63);
 }

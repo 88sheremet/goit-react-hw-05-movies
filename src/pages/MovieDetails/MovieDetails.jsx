@@ -4,13 +4,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import { trendingMovieDetails } from 'services/api';
+import css from '../MovieDetails/MovieDetails.module.css';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { movieId } = useParams();
-  const location = useLocation()
-  
+  const location = useLocation();
 
   useEffect(() => {
     const getMovie = async () => {
@@ -31,7 +31,7 @@ const MovieDetails = () => {
 
   // console.log(movie);
   const genre = movie?.genres.map(genre => (
-    <span key={genre.id}>{genre.name}</span>
+    <span key={genre.id} className={css.genre_name}>{genre.name},</span >
   ));
 
   if (!movie) {
@@ -40,35 +40,53 @@ const MovieDetails = () => {
 
   return (
     <>
-    <ButtonGoBack/>
-    <div>
-      {isLoading && <Loader/>}
-      <img
-        src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-        alt=""
-      />
-      <h2>{movie.title}</h2>
-      <h2>User Score: {movie.vote_average * 10}%</h2>
+      <ButtonGoBack />
+      <div>
+        <div className={css.movie_container}>
+          {isLoading && <Loader />}
+          <img
+            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+            alt=""
+            width="480"
+            height="320"
+          />
+          <div>
+            <h2>{movie.title}</h2>
+            <h2>User Score: {movie.vote_average * 10}%</h2>
 
-      <h2>Overview:</h2>
-      <p>{movie.overview}</p>
-      <h2>Genres:</h2>
-      <p>{genre}</p>
-      <h2>Additional information:</h2>
+            <h2>Overview:</h2>
+            <p>{movie.overview}</p>
+            <h2>Genres:</h2>
+            <p>{genre}</p>
+          </div>
+        </div>
 
-      <ul>
-        <li>
-          <NavLink to="cast" state={{ from: location.state?.from ?? '/' }}>Cast</NavLink>
-        </li>
-        <li>
-          <NavLink to="reviews" state={{ from: location.state?.from ?? '/' }}>Reviews</NavLink>
-        </li>
-      </ul>
-      <Outlet />
-    </div>
+        <h2 className={css.additional}>Additional information:</h2>
+
+        <ul className={css.additional_list}>
+          <li>
+            <NavLink
+              to="cast"
+              state={{ from: location.state?.from ?? '/' }}
+              className={css.additional_list_item}
+            >
+              Cast
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="reviews"
+              state={{ from: location.state?.from ?? '/' }}
+              className={css.additional_list_item}
+            >
+              Reviews
+            </NavLink>
+          </li>
+        </ul>
+        <Outlet />
+      </div>
     </>
   );
 };
-
 
 export default MovieDetails;

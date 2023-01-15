@@ -1,0 +1,19 @@
+.title {
+  padding: 15px 15px 0 37px;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.list_ref {
+  width: 400px;
+  background-color: rgb(193, 184, 211);
+  border-radius: 8px;
+}
+
+.movie_title {
+  color: black;
+}
+
+.movie_title:hover {
+  color: rgb(40, 40, 206);
+}

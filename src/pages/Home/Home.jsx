@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { trendingMovies } from 'services/api';
+import css from '../Home/Home.module.css';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -27,15 +28,15 @@ const Home = () => {
 
   return (
     <div>
-      <h2>Trending today</h2>
+      <h2 className={css.title}>Trending today 🔥 </h2>
       {isLoading && <Loader />}
-      <ul>
+      <ul className={css.list}>
         {movies &&
           movies.map(movie => {
             return (
-              <li key={movie.id}>
+              <li key={movie.id} className={css.list_ref}>
                 <NavLink to={`/movies/${movie.id}`} state={{ from: location }}>
-                  <h3>{movie.title}</h3>
+                  <h3 className={css.movie_title}>{movie.title}</h3>
                 </NavLink>
               </li>
             );
