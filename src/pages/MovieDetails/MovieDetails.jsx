@@ -52,7 +52,7 @@ const MovieDetails = () => {
           />
           <div>
             <h2>{movie.title}</h2>
-            <h2>User Score: {movie.vote_average * 10}%</h2>
+            <h2>User Score: {Math.round(movie.vote_average * 10)}%</h2>
 
             <h2>Overview:</h2>
             <p>{movie.overview}</p>
