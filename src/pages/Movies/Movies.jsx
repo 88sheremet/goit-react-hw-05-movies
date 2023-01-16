@@ -1,75 +1,52 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { searchMovie } from 'services/api';
-import Notiflix from 'notiflix';
 import { Loader } from 'components/Loader/Loader';
 import css from '../Movies/Movies.module.css';
+import Searchbar from 'components/Searchbar/Searchbar';
 
 const Movies = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get('query');
-  const [query, setQuery] = useState(searchQuery ?? '');
+  const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [searchMovies, setSearchMovies] = useState([]);
   const location = useLocation();
 
-  // console.log(searchQuery);
-
-  const onChange = e => {
-    setQuery(e.target.value);
-    // console.log(query);
-  };
-
-  const onSubmit = e => {
-    e.preventDefault();
-
-    setSearchParams({ query: query });
-
-    if (query === '') {
-      Notiflix.Notify.failure(`Enter a query!`);
-      return;
-    }
+  const onChangeQuery = newQuery => {
+    setQuery(newQuery);
   };
 
   useEffect(() => {
     if (query === '') return;
 
-    const getSearchMovie = async () => {
+    const getSearchMovie = async query => {
       try {
         setIsLoading(true);
-       
+
         const { data } = await searchMovie(query);
         setSearchMovies(data.results);
-       
       } catch (error) {
         alert(error.message);
       } finally {
         setIsLoading(false);
       }
     };
-    getSearchMovie();
+    getSearchMovie(query);
   }, [query]);
 
   return (
     <>
-      <div>
-        <form onSubmit={onSubmit} className={css.form}>
-          <input type="text" onChange={onChange} className={css.input} />
-          <button type="submit" className={css.button}>
-            Search
-          </button>
-        </form>
-      </div>
+      <Searchbar onChangeQuery={onChangeQuery} />
+
       <div>
         {isLoading && <Loader />}
 
-        <ul>
+        <ul className={css.list}>
           {searchMovies.map(movie => {
             return (
-              <li key={movie.id}>
+              <li key={movie.id} className={css.list_ref}>
                 <NavLink to={`/movies/${movie.id}`} state={{ from: location }}>
-                  <p>{movie.title}</p>
+                  <p className={css.movie_title}>{movie.title}</p>
                 </NavLink>
               </li>
             );

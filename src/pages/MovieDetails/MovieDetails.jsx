@@ -18,7 +18,6 @@ const MovieDetails = () => {
         setIsLoading(true);
         const { data } = await trendingMovieDetails(movieId);
 
-        // console.log(data);
         setMovie(data);
       } catch (error) {
         alert(error.message);
@@ -29,9 +28,10 @@ const MovieDetails = () => {
     getMovie();
   }, [movieId]);
 
-  // console.log(movie);
   const genre = movie?.genres.map(genre => (
-    <span key={genre.id} className={css.genre_name}>{genre.name},</span >
+    <span key={genre.id} className={css.genre_name}>
+      {genre.name},
+    </span>
   ));
 
   if (!movie) {

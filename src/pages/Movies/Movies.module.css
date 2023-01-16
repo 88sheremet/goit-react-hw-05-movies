@@ -20,3 +20,19 @@
   font-size: 16px;
   font-weight: 500;
 }
+
+.list_ref {
+  width: 400px;
+  background-color: rgb(193, 184, 211);
+  border-radius: 8px;
+}
+
+.movie_title {
+  color: black;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.movie_title:hover {
+  color: rgb(40, 40, 206);
+}

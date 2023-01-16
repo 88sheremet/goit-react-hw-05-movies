@@ -15,10 +15,15 @@
 }
 
 .additional_list_item {
+  color: black;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
-.genre_name{
-    margin: 5px;
+.additional_list_item:hover {
+  color: blue;
+}
+
+.genre_name {
+  margin: 5px;
 }
