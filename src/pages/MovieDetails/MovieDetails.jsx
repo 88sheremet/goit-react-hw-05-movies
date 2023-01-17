@@ -68,7 +68,7 @@ const MovieDetails = () => {
           <li>
             <NavLink
               to="cast"
-              state={{ from: location.state?.from ?? '/' }}
+              // state={{ from: location.state?.from ?? '/' }}
               className={css.additional_list_item}
             >
               Cast
@@ -77,7 +77,7 @@ const MovieDetails = () => {
           <li>
             <NavLink
               to="reviews"
-              state={{ from: location.state?.from ?? '/' }}
+              // state={{ from: location.state?.from ?? '/' }}
               className={css.additional_list_item}
             >
               Reviews
