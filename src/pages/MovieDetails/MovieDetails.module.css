@@ -27,3 +27,12 @@
 .genre_name {
   margin: 5px;
 }
+
+.buttonGoBack {
+  margin: 15px;
+  cursor: pointer;
+  min-width: 100px;
+  padding: 5px;
+  font-size: 14px;
+  font-weight: 500;
+}

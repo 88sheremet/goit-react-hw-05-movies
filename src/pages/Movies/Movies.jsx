@@ -19,6 +19,8 @@ const Movies = () => {
   useEffect(() => {
     if (query === '') return;
 
+  
+
     const getSearchMovie = async query => {
       try {
         setIsLoading(true);
@@ -32,7 +34,13 @@ const Movies = () => {
       }
     };
     getSearchMovie(query);
+
+    if(query !== ''){
+      getSearchMovie(query);
+    }
   }, [query]);
+
+  
 
   return (
     <>

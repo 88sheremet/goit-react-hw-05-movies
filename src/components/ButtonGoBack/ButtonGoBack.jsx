@@ -1,12 +1,14 @@
-import { Link, useLocation } from 'react-router-dom';
-import css from '../ButtonGoBack/ButtonGoBack.module.css';
+// import { Link, useLocation } from 'react-router-dom';
+// import { Link} from 'react-router-dom';
+// import css from '../ButtonGoBack/ButtonGoBack.module.css';
 
-export const ButtonGoBack = () => {
-  const location = useLocation();
+// export const ButtonGoBack = ({to}) => {
+  // const location = useLocation();
 
-  return (
-    <Link to={location.state?.from ?? ''}>
-      <button className={css.buttonGoBack}>🡄 Go Back</button>
-    </Link>
-  );
-};
+  // return (
+    // <Link to={location.state?.from ?? ''}>
+//       <Link >
+//       <button className={css.buttonGoBack}>🡄 Go Back</button>
+//     </Link>
+//   );
+// };
