@@ -1,4 +1,3 @@
-// import { ButtonGoBack } from 'components/ButtonGoBack/ButtonGoBack';
 import { Loader } from 'components/Loader/Loader';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -40,9 +39,8 @@ const MovieDetails = () => {
 
   return (
     <>
-      {/* <ButtonGoBack  to={location.state?.from ?? '/movies'}/> */}
-      <NavLink to={location.state?.from ?? ''} >
-      <button className={css.buttonGoBack}>🡄 Go Back</button>
+      <NavLink to={location.state?.from ?? ''}>
+        <button className={css.buttonGoBack}>🡄 Go Back</button>
       </NavLink>
       <div>
         <div className={css.movie_container}>

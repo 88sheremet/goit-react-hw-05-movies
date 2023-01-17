@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import css from '../../pages/Movies/Movies.module.css';
 import Notiflix from 'notiflix';
@@ -22,19 +22,17 @@ const Searchbar = ({ onChangeQuery }) => {
       Notiflix.Notify.failure(`Enter a query!`);
       return;
     }
-    
   };
-
-  useEffect(() => {
-    if (query !== '') {
-      setSearchParams({ query: query });
-    }
-  }, [query,setSearchParams]);
 
   return (
     <div>
       <form onSubmit={onSubmit} className={css.form}>
-        <input type="text" onChange={onChange} className={css.input} defaultValue={searchQuery}/>
+        <input
+          type="text"
+          onChange={onChange}
+          className={css.input}
+          defaultValue={searchQuery}
+        />
         <button type="submit" className={css.button}>
           Search
         </button>
